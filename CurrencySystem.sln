@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencySystem.ConsoleApp", "CurrencySystem.ConsoleApp\CurrencySystem.ConsoleApp.csproj", "{03641AD0-602F-4D1E-B067-0356020A26A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencySystem.CurrencyLibrary", "CurrencySystem.CurrencyLibrary\CurrencySystem.CurrencyLibrary.csproj", "{B5EAC656-211B-4631-93CF-0E2D98FCEA01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03641AD0-602F-4D1E-B067-0356020A26A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03641AD0-602F-4D1E-B067-0356020A26A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03641AD0-602F-4D1E-B067-0356020A26A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03641AD0-602F-4D1E-B067-0356020A26A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5EAC656-211B-4631-93CF-0E2D98FCEA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5EAC656-211B-4631-93CF-0E2D98FCEA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5EAC656-211B-4631-93CF-0E2D98FCEA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5EAC656-211B-4631-93CF-0E2D98FCEA01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
