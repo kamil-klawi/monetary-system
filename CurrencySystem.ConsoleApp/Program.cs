@@ -1,5 +1,8 @@
 ﻿using static System.Console;
 using System.Text;
+using CurrencySystem.ConsoleApp.Enums;
+using CurrencySystem.ConsoleApp.Models;
+using CurrencySystem.ConsoleApp.Utilities;
 using CurrencySystem.CurrencyLibrary.Enums;
 using CurrencySystem.CurrencyLibrary.Exceptions;
 using CurrencySystem.CurrencyLibrary.Models;
@@ -17,8 +20,8 @@ namespace CurrencySystem.ConsoleApp
             var eur = Currency.CreateOrUpdateCurrency("Euro", "EUR", "\u20ac", "Europe Union", 2, 0.92m, CurrencyType.FIAT);
             var pln = Currency.CreateOrUpdateCurrency("Polish Zloty", "PLN", "zł", "Poland", 2, 4m, CurrencyType.FIAT);
             var gold = Currency.CreateOrUpdateCurrency("Gold", "", "Au", "International", 2, 1900m, CurrencyType.COMMODITY);
-            var bitcoin = Currency.CreateOrUpdateCurrency("Bitcoin", "BTN", "BTN", "International", 2, 28000m, CurrencyType.COMMODITY);
-            var dogeCoin = Currency.CreateOrUpdateCurrency("Dogecoin", "DOGE", "DOGE", "International", 2, 0.065m, CurrencyType.COMMODITY);
+            var bitcoin = Currency.CreateOrUpdateCurrency("Bitcoin", "BTN", "BTN", "International", 2, 28000m, CurrencyType.CRYPTO);
+            var dogeCoin = Currency.CreateOrUpdateCurrency("Dogecoin", "DOGE", "DOGE", "International", 2, 0.065m, CurrencyType.CRYPTO);
             var currencyManager = new CurrencyManager();
             
             try
@@ -34,28 +37,25 @@ namespace CurrencySystem.ConsoleApp
             {
                 WriteLine($"Error: {ex.Message} for currency code: {ex.CurrencyCode}");
             }
-            
-            var currencyConverter = new CurrencyConverter();
-            var fromCurrencyAmountUsd = 100m;
-            var convertedAmountToPln = currencyConverter.Convert(usd, pln, fromCurrencyAmountUsd);
-            var convertedAmountToEur = currencyConverter.Convert(usd, eur, fromCurrencyAmountUsd);
-            
-            WriteLine($"{fromCurrencyAmountUsd:N2}{usd.CurrencySymbol} is {convertedAmountToPln:N2}{pln.CurrencySymbol}");
-            WriteLine($"{fromCurrencyAmountUsd:N2}{usd.CurrencySymbol} is {convertedAmountToEur:N2}{eur.CurrencySymbol}");
 
-            foreach (var currency in currencyManager.GetCurrencies())
+            var johnBalances = new Dictionary<string, decimal>()
             {
-                WriteLine($"{currency.Value.Name} [{currency.Value.CurrencySymbol}]");
-            }
-
-            try
-            {
-                currencyManager.RemoveCurrency("EUR");
-            }
-            catch (CurrencyException ex)
-            {
-                WriteLine($"Error: {ex.Message} for currency code: {ex.CurrencyCode}");
-            }
+                { "USD", 200m },
+                { "EUR", 200m },
+            };
+            
+            var john = User.CreateUser(Guid.NewGuid(), "John", "Doe", "john@doe.com", DateTime.Now, 
+                Address.CreateAddress(Guid.NewGuid(), "United States", "Los Angeles", "Street", "12-432"),
+                Wallet.CreateWallet(Guid.NewGuid(), johnBalances, "USD", DateTime.Now, DateTime.Now));
+            
+            var walletManager = new WalletManager();
+            var transaction = Transaction.CreateTransaction("USD", 25m, TransactionType.DEPOSIT);
+            var transaction2 = Transaction.CreateTransaction("USD", 50m, TransactionType.EXCHANGE);
+            walletManager.AddTransaction(john.Wallet, currencyManager.GetCurrency("USD"), currencyManager.GetCurrency("EUR"), transaction);
+            walletManager.GetWalletStatus(john.Wallet);
+            WriteLine();
+            walletManager.AddTransaction(john.Wallet, currencyManager.GetCurrency("USD"), currencyManager.GetCurrency("PLN"), transaction2);
+            walletManager.GetWalletStatus(john.Wallet);
         }
     }
 }
